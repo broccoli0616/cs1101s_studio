@@ -36,4 +36,39 @@ function empty_order() {
 empty_order();
 
 
-function add_to_order
+function add_to_order(x, y){
+    return 10 * x + y;
+}
+add_to_order(1, 8);
+
+
+ function last_combo(x)
+ {
+     return x % 10;
+     // %: The remainder ( % ) operator returns the remainder 
+     //left over when one operand is divided by a second operand
+ }
+
+last_combo(329);
+
+
+function other_combos(x)
+{
+    return x / 10 - last_combo(x) / 10; 
+}
+
+other_combos(345);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
