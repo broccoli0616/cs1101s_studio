@@ -74,10 +74,11 @@ other_combos(345);
 } the function will be returned */
 
 
-
-
-
-
+/* challenge: convert the following return statement into 
+conditional expression assume a and b are boolean values 
+function f(a, b){
+    return a || b; whatever is true 
+}
 
 
 
