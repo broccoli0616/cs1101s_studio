@@ -28,31 +28,46 @@ _ omega: best case  */
 
 
 import {square, circle, ribbon, blank, beside, stack, show, 
-beside_frac,stack_frac} from "rune";
-function bottom_right(rune){
+       beside_frac,stack_frac} from "rune";
+/*function bottom_right(rune){
     return beside(stack(circle, square), stack(blank, rune));
 }
-function moony_1(rune1){
-    return bottom_right(rune1);
+// bottom_right is an argument ! it is not a function */
+function moony_1(bottom_right){
+    return beside(stack(circle, square), stack(blank, bottom_right));
 }
 
 function moony_2(n){
-    return n - 1 === 0 
+    return n  === 1
     ? circle 
     : beside(stack(circle, square), stack(blank, moony_2(n - 1)));
 }
 
 
 function moony(n){
-    return n - 1 === 0 
+    return n  === 1
     ? circle 
     : beside_frac((1 / n),
                  stack_frac(1 / n, circle, square), 
                  stack_frac(1 / n, blank, moony(n - 1)));
 }
 
-
 show(moony(5));
+
+
+/* there are all recursive, there are deferred operation, must evaluate the 
+most inside function before evaluate the rest 
+time O(n), omega(n), theta(n)
+same for space
+primitive runes and operations occupy the same space 
+
+theta is not average time complexity 
+only exist when both o and omega are same 
+
+
+
+
+
 
 
 
