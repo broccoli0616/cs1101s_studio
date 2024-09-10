@@ -5,7 +5,7 @@ hand side of operation, got boolean."" ?? */
 
 function three_quarters(pt) {
     return t => {
-        if (3/4 < t < 1){
+        if (3/4 < t < 1){ // should put separately 
            return 0;
         } else {
         const p = make_point(math_cos(2 * math_PI * t),
@@ -29,10 +29,10 @@ tail(pair(1, 2)) === 2; // should return true
 
 const pair = (x, y) => f => f(x, y);
 function head(p){
-    function p(x, y){
+    function p(x, y){ // here both the parameter and function is p, cannot be declared twice 
         return x;
     }
-    return p;
+    return p; // should return a value where p is called, p(p1)
 }
 head(pair(1, 2));
 
@@ -53,6 +53,33 @@ t => t < 0.5
 const doremi = make_sound(doremi_wave, 1.5);
 play(doremi);
 // 3 tones connected one after each other ? 
+
+
+
+studio 5
+
+// Compute the greatest common divisor (GCD) of
+// two numbers using Euclid’s algorithm
+function gcd(a, b) {
+return b === 0 ? a : gcd(b, a % b);
+}
+
+function make_rat(n, d) {
+const g = gcd(n, d);
+return pair(n / g, d / g);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
