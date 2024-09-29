@@ -43,7 +43,7 @@ draw_data(list(list(7), list(6, 5, 4), list(3, 2), 1));
 //display */
 
 
-function every_even(items){
+/*function every_even(items){
      function helper(item, n){
          return n > length(items) - 1
                 ? null
@@ -74,9 +74,27 @@ function sum(items){
     
 }
 
-sum(list(2, 3, 4, 5, 1));
+sum(list(2, 3, 4, 5, 1)); */
 
+function sums(xs){
+    function is_even(x){
+        return x % 2 === 0
+               ? true 
+               : false ;
+    }
+    function is_odd(x){
+        return x % 2 !== 0
+               ? true 
+               : false ;
+    }
+    function sum(xs){
+        return accumulate((x, ys) => x + ys, 0, xs);
+    }
+   const x3 = list(filter(x => is_odd(x), xs), filter(x => is_even(x), xs));
+  return accumulate((x, ys) => pair(sum(x), ys), null, x3);
+}
 
+sums(list(1, 2, 3, 4, 5));
 
 
 
