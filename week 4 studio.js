@@ -29,13 +29,13 @@ function x(y){
         return x;
     }
 }
-// return undefined, this nothing returned 
+// return undefined, this nothing returned as x is not called 
 // always return the name (function/parameter) in the closed surrounding 
 // declaration 
 
 const x = x => x => x; 
 x(2)(1)
-return function 2 which return function 1, hence return 1 
+x will just return the parameter 1 (closed surrounding)
 
 
 
