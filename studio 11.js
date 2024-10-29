@@ -14,15 +14,11 @@ const int = integers(1);
 const int2 = pair(1, () => pair(2, () => pair(3, 
                                        () => pair(4, () => null))));
 
-function map_stream(a, b){
-    return is_null(stream_tail(b))
-           ? pair(head(a), head(b))
-           : is_null(stream_tail(a))
-           ? pair(head(a), head(b))
-           : head(a) < head(b)
-           ? pair(pair(head(a), head(b)), () => map_stream(a, stream_tail(b)))
-           : head()
-           
+function stream_pair3(s){
+    function streamMaker(a, b){
+        return b === a? null : pair(pair(a, b), () => streamMaker(a + 1, b));
+    }
+    return stream_append_pickle(streamMaker(1, head(s)), () => stream_pair3(stream_tail(s)));
 }
 
 const test = map_stream(int, stream_tail(int));
