@@ -108,9 +108,8 @@ function evaluate(program) {
                     C));
             E = extend_environment(locals, unassigneds, E);
         } else if (is_function_declaration(command)) {
-            // C = pair(function_decl_to_constant_decl(command),
-            //          C);
-              C = pair(C, function_decl_to_constant_decl(command));
+            C = pair(function_decl_to_constant_decl(command),
+                     C);
         } else if (is_declaration(command)) {
             C = pair(make_assignment(
                        declaration_symbol(command),
@@ -455,8 +454,6 @@ function make_literal(val) {
 function is_name(component) {
     return is_tagged_list(component, "name");
 }
-
-
 function make_name(symbol) {
     return list("name", symbol);
 }
@@ -514,11 +511,9 @@ function conditional_predicate(component) {
    return list_ref(component, 1);
 }
 function conditional_consequent(component) {
-    evaluate(list_ref(component, 2));
    return list_ref(component, 2);
 }
 function conditional_alternative(component) {
-    evaluate(list_ref(component, 3));
    return list_ref(component, 3);
 }
 function make_conditional_expression(pred, cons, alt) {
@@ -569,11 +564,10 @@ function assignment_value_expression(component) {
     return head(tail(tail(component)));
 }
 function make_assignment(symbol, expression) {
-           return list("assignment", 
+    return list("assignment", 
                 make_name(symbol),
                 expression);
-    }
-
+}
 
 // lambda expressions
 
@@ -964,7 +958,9 @@ function lookup_symbol_value(symbol, env) {
             return is_null(symbols)
                    ? env_loop(enclosing_environment(env))
                    : symbol === head(symbols)
-                   ? head(vals)
+                   ? head(vals) === "*unassigned*"
+                   ? error(symbol, "hello_world")
+                   : head(vals)
                    : scan(tail(symbols), tail(vals));
         }
         if (env === the_empty_environment) {
@@ -1292,12 +1288,12 @@ const y = 4;
 `);
 */
 
-parse_and_evaluate(`{
-const x = f(8);
-function f(y) {
-return y + 34;
-}
-x;
-}`);
+parse_and_evaluate(
+    `const x = y;
+    const y = 42;
+    const z = "***" + x + "***";
+    z;`
+);
+
 
 
