@@ -455,9 +455,9 @@ function make_literal(val) {
 function is_name(component) {
     return is_tagged_list(component, "name");
 }
-const declared = [];
+
+
 function make_name(symbol) {
-    declared = declared[name];
     return list("name", symbol);
 }
 function symbol_of_name(component) {
@@ -514,9 +514,11 @@ function conditional_predicate(component) {
    return list_ref(component, 1);
 }
 function conditional_consequent(component) {
+    evaluate(list_ref(component, 2));
    return list_ref(component, 2);
 }
 function conditional_alternative(component) {
+    evaluate(list_ref(component, 3));
    return list_ref(component, 3);
 }
 function make_conditional_expression(pred, cons, alt) {
@@ -567,14 +569,11 @@ function assignment_value_expression(component) {
     return head(tail(tail(component)));
 }
 function make_assignment(symbol, expression) {
-    return if(declared[symbol] = undefined){
-        return "error";
-    } else{
            return list("assignment", 
                 make_name(symbol),
                 expression);
     }
-}
+
 
 // lambda expressions
 
@@ -1293,6 +1292,12 @@ const y = 4;
 `);
 */
 
-
+parse_and_evaluate(`{
+const x = f(8);
+function f(y) {
+return y + 34;
+}
+x;
+}`);
 
 
