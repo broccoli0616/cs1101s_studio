@@ -959,7 +959,8 @@ function lookup_symbol_value(symbol, env) {
                    ? env_loop(enclosing_environment(env))
                    : symbol === head(symbols)
                    ? head(vals) === "*unassigned*"
-                   ? error(symbol, "hello_world")
+                   // overwrite the string comparison, compare the function instead
+                   ? error(symbol, "y is not initialized")
                    : head(vals)
                    : scan(tail(symbols), tail(vals));
         }
@@ -1289,7 +1290,7 @@ const y = 4;
 */
 
 parse_and_evaluate(
-    `const x = y;
+    ` y = 1;
     const y = 42;
     const z = "***" + x + "***";
     z;`
